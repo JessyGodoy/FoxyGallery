@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for ('static', filename='css/style.css') }}">
+    <title>
+    {% block titulo %}
+        FoxyGallery 🦊
+    {% endblock %}
+    </title>
+  </head>
+
+{% block body %}
+  <body> 
+    <div class="container">
+      <header>
+        <nav>
+          <a href="{{ url_for('feed') }}" class="logo-FoxyGallery">
+          <img src="{{ url_for('static', filename='fotos_site/logo-pequena.png') }}">
+          <h1>FoxyGallery</h1>
+          </a>
+
+          <div class="restante-nav">
+            <p class="botao-perfil"><a href="" class="link-nav">Perfil</a></p>
+            <a href="" class="link-nav">Sair</a>
+          </div>
+        </nav>
+      </header>
+
+      <div class="feed-fundo">
+       {% for foto in fotos %}
+      <img src="{{ url_for('static', filename='fotos_posts/' + foto.imagem) }}">
+       {% endfor %}
+      </div>
+
+      <div class="container-popup">
+
+        {% block formulario %}
+
+        <form method="POST" class="popup">
+            {{ form.csrf_token }}
+          <img src="{{ url_for('static', filename='fotos_site/LogoFoxy.png') }}">
+
+          <h2>Bem-vindo(a) ao FoxyGallery 🦊</h2>
+
+          <div class="div-input">
+              {{ form.email.label(class="label") }}
+                {{ form.email(class="input") }}
+          </div>
+
+          <div class="div-input">
+            {{ form.senha.label(class="label") }}
+            {{ form.senha(class="input") }}
+          </div>
+
+          <div class="div-botao">
+              {{ form.botao_confirmacao(class="botao-login") }}
+            <a href="{{ url_for('criarconta') }}" class="link-criarconta">Não tem uma conta? Crie aqui</a>
+          </div>
+
+        </form>
+          {% endblock %}
+
+      </div>
+    </div>
+  </body>
+{% endblock %}
+</html>

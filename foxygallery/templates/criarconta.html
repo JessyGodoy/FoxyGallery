@@ -1,0 +1,42 @@
+{% extends "homepage.html" %}
+
+{% block titulo %}
+        Criar Conta - FoxyGallery
+{% endblock %}
+
+{% block formulario %}
+
+        <form method="POST" class="popup">
+            {{ form.csrf_token }}
+         <img src="{{ url_for('static', filename='fotos_site/LogoFoxy.png') }}">
+
+          <h2>Bem-vindo(a) ao FoxyGallery 🦊</h2>
+
+          <div class="div-input">
+              {{ form.email.label(class="label") }}
+                {{ form.email(class="input") }}
+          </div>
+
+          <div class="div-input">
+              {{ form.username.label(class="label") }}
+                {{ form.username(class="input") }}
+          </div>
+
+          <div class="div-input">
+            {{ form.senha.label(class="label") }}
+            {{ form.senha(class="input") }}
+          </div>
+
+           <div class="div-input">
+            {{ form.confirmacao_senha.label(class="label") }}
+            {{ form.confirmacao_senha(class="input") }}
+          </div>
+
+          <div class="div-botao">
+              {{ form.botao_confirmacao(class="botao-login") }}
+              
+            <a href="{{ url_for('homepage') }}" class="link-criarconta">Já possui uma conta? Faça o login clicando aqui</a>
+          </div>
+
+        </form>
+ {% endblock %}

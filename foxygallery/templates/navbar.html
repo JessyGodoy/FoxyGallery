@@ -1,0 +1,16 @@
+
+<header>
+        <nav>
+          <!-- ESQUERDA -->
+          <a href="{{ url_for('feed') }}" class="logo-FoxyGallery" style="text-decoration: none;">
+          <img src="{{ url_for('static', filename='fotos_site/logo-pequena.png') }}">
+          <h1>FoxyGallery 🦊</h1>
+          </a>
+
+          <!-- DIREITA -->
+          <div class="restante-nav">
+            <p class="botao-perfil"><a href="{{ url_for('perfil', id_usuario=current_user.id) }}" class="link-nav">Perfil</a></p>
+            <a href="{{ url_for('logout') }}" class="link-nav">Sair</a>
+          </div>
+        </nav>
+      </header>

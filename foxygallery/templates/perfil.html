@@ -1,0 +1,76 @@
+{% extends "homepage.html" %} 
+
+{% block titulo %} 
+
+Perfil - {{ usuario.username }} 
+
+{% endblock %} 
+
+{% block body %} 
+
+<body>
+  {% include "navbar.html" %} 
+
+  {% if form %} 
+  <div class="container"> 
+    
+    <form class="bloco-add-img" method="POST" enctype="multipart/form-data"> 
+      {{ form.csrf_token }}
+       <h2>{{ usuario.username }} - Enviar foto</h2> 
+
+       <div class="bloco-input-botao">
+       
+       <div class="bloco-arquivo"> 
+      <label for="foto" class="botao-arquivo">
+         Escolher arquivo 
+        {{ form.foto(class="input-arquivo", id="foto") }} 
+      </label> 
+      <span id="imagem-arquivo" class=""></span>
+    
+    </div> 
+    
+    {{ form.botao_confirmacao(class="botao-login") }} 
+    
+     </div>
+    </form> 
+  </div> 
+  
+  {% else %} 
+  <div class="bloco-add-img"> 
+    <h2>{{ usuario.username }} - Perfil</h2>
+   </div> 
+  {% endif %} 
+   
+  <div class="conteudo"> 
+  
+  {% for foto in usuario.fotos %} 
+
+  <div class="bloco-imagem"> 
+
+    <a href="{{ url_for('static', filename='fotos_posts/{}'.format(foto.imagem)) }}" target="_blank">
+   <img src="{{ url_for('static', filename='fotos_posts/{}'.format(foto.imagem)) }}" /> 
+
+   </a>
+    {% if current_user.id == foto.id_usuario %}
+
+    <a href="{{ url_for('excluir_foto', id_foto=foto.id) }}" class="botao-excluir">
+      Excluir
+
+    </a>
+    {% endif %}
+
+  </div> 
+
+  {% endfor %}
+
+</div> 
+
+<script> 
+let input = document.getElementById("foto");
+ let imagemArquivo = document.getElementById("imagem-arquivo"); 
+ input.addEventListener("change", () => { let inputImagem = document.querySelector("input[type=file]").files[0];
+imagemArquivo.classList.add("visivel"); imagemArquivo.innerText = inputImagem.name; });
+</script> 
+
+</body>
+ {% endblock %}
